@@ -1,0 +1,7 @@
+{
+  "name": "Portfoliomatic - GitHub Pages Portfolio Generator & Deployer",
+  "description": "Generate modern developer and professional portfolios for GitHub Pages in real time with hex color customizer, file uploads, live preview, ZIP export, and 1-click GitHub Pages deployment.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

@@ -1,0 +1,36 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            cd /opt/auto-portfolio
+            git pull origin main
+            npm install --legacy-peer-deps
+            npm run build
+            if pm2 describe auto-portfolio > /dev/null 2>&1; then
+              pm2 reload auto-portfolio --update-env
+            elif pm2 describe portfoliomatic > /dev/null 2>&1; then
+              pm2 reload portfoliomatic --update-env
+            else
+              pm2 start server.ts --name "auto-portfolio" --interpreter ./node_modules/.bin/tsx --time
+              pm2 save
+            fi
+

@@ -1,0 +1,8 @@
+Place your logo image here!
+Name it either:
+- logo.png (recommended)
+or
+- oval_final.png
+
+You can place it directly in `public/logo.png` or `public/assets/logo.png`.
+It will be served at `/logo.png` and automatically display in the header and footer.
